@@ -1,2 +1,2 @@
-# JMSBSServer
-Array of Server Providers
+# Sample single case store 
+Server Providers
