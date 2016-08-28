@@ -1,4 +1,4 @@
-# Bussines addidas server
+# addidas Bussines Server  
 Sample bussiness case for jms
 
 
