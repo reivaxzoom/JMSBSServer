@@ -8,7 +8,7 @@
         <version>1.0.2.RELEASE</version>
     </parent>
     <groupId>edu.elte</groupId>
-    <artifactId>supermarket</artifactId>
+    <artifactId>wallmart</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
     <properties>

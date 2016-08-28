@@ -17,6 +17,7 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.Topic;
 import javax.naming.Context;
@@ -104,8 +105,8 @@ public class QueryProcessor {
 
             session = connection.createSession(true, Session.SESSION_TRANSACTED);
             Topic requestTopic = session.createTopic("requestTopic");
-//            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "tesco");
-            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "supermarket");
+//            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "tesco");"Beverages","Meat","Cleaners","PersonalCare"
+            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "wallmart","category='Cleaners' OR category='Personal Care' OR category='Meat' OR category= 'Beverages'  ",true);
              
             
             
@@ -113,7 +114,7 @@ public class QueryProcessor {
             stOps = new StoreOperationsImpl();
             ObjectMessage message;
             context.close();
-            long timeout = 3000;
+            long timeout = -1;
             int receivedMsg = 0;
             int minimum=2;
             int maximum=6;
@@ -141,7 +142,9 @@ public class QueryProcessor {
 
         } catch (JMSException ex) {
             Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException | NamingException | InterruptedException ex) {
+        } catch (IOException | NamingException ex) {
+            Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -164,24 +167,22 @@ public class QueryProcessor {
             connection = connectionFactory.createConnection();
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-//            Queue queue = (Queue) context.lookup("responseQueue");
-            Destination queue = new AMQAnyDestination("responseQueue; {create: always}");
+            Queue queue = (Queue) context.lookup("responseQueue");
+//            Destination queue = new AMQAnyDestination("responseQueue; {create: always}");
 //            Destination queue = new AMQAnyDestination("responseQueue");
             producer = session.createProducer(queue);
 
             ObjectMessage m = session.createObjectMessage(cart);
-            m.setIntProperty("Id", 2);
-            m.setStringProperty("name", "Supermarket");
-            m.setStringProperty("addres", "All in one supermarket");
-            m.setDoubleProperty("number", 1);
+            m.setIntProperty("Id", 100);
+            m.setStringProperty("name", "wallmart");
+            m.setStringProperty("addres", "vaci ut");
+            m.setDoubleProperty("number", 9);
             m.setJMSTimestamp(Instant.now().toEpochMilli());
             producer.send((Message) m);
             System.out.println("Sent: " + m);
             
 
         } catch (JMSException | NamingException | IOException  ex) {
-            Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (URISyntaxException ex) {
             Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
@@ -207,9 +208,9 @@ public class QueryProcessor {
         stOps.findAllItems().stream().forEach(System.out::println);
     }
 
-    public static void main(String[] args) {
-
-        QueryProcessor receiver=new QueryProcessor();
-        receiver.consumeAll();
-    }
+//    public static void main(String[] args) {
+//
+//        QueryProcessor receiver=new QueryProcessor();
+//        receiver.consumeAll();
+//    }
 }
