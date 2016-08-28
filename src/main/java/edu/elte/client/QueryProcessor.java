@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
@@ -19,13 +18,14 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.Topic;
+import javax.jms.Destination;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.qpid.client.AMQAnyDestination;
+
 
 public class QueryProcessor {
 
@@ -105,11 +105,14 @@ public class QueryProcessor {
             session = connection.createSession(true, Session.SESSION_TRANSACTED);
             Topic requestTopic = session.createTopic("requestTopic");
 //            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "tesco");
-            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "supermarket");
+            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "addidas","category='shoes' OR category='sport'  ",true);
+/*
+            Context marketplaceContext = Declare("category", String.class);
+            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "addidas",marketplaceContext.create(Equal("category","shoes").OR( Equal("category","sport"))),true);
              
-            
-            
-
+            msg.setStringProperty("category","food")
+            marketplaceContext.setStringProperty(msg,"category","food")
+*/                    
             stOps = new StoreOperationsImpl();
             ObjectMessage message;
             context.close();
@@ -165,23 +168,21 @@ public class QueryProcessor {
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 //            Queue queue = (Queue) context.lookup("responseQueue");
-            Destination queue = new AMQAnyDestination("responseQueue; {create: always}");
-//            Destination queue = new AMQAnyDestination("responseQueue");
+//            Destination queue = new AMQAnyDestination("responseQueue; {create: always}");
+            Destination queue = new AMQAnyDestination("responseQueue");
             producer = session.createProducer(queue);
 
             ObjectMessage m = session.createObjectMessage(cart);
-            m.setIntProperty("Id", 2);
-            m.setStringProperty("name", "Supermarket");
-            m.setStringProperty("addres", "All in one supermarket");
+            m.setIntProperty("Id", 100);
+            m.setStringProperty("name", "Addidas");
+            m.setStringProperty("addres", "Sport center utca");
             m.setDoubleProperty("number", 1);
             m.setJMSTimestamp(Instant.now().toEpochMilli());
             producer.send((Message) m);
             System.out.println("Sent: " + m);
             
 
-        } catch (JMSException | NamingException | IOException  ex) {
-            Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (URISyntaxException ex) {
+        } catch (JMSException | NamingException | IOException |URISyntaxException   ex) {
             Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
@@ -207,9 +208,9 @@ public class QueryProcessor {
         stOps.findAllItems().stream().forEach(System.out::println);
     }
 
-    public static void main(String[] args) {
-
-        QueryProcessor receiver=new QueryProcessor();
-        receiver.consumeAll();
-    }
+//    public static void main(String[] args) {
+//
+//        QueryProcessor receiver=new QueryProcessor();
+//        receiver.consumeAll();
+//    }
 }
