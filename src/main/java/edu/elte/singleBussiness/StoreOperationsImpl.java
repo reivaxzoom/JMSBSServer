@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.elte.singleBussiness;
 
 import edu.elte.client.ClientRequest;
@@ -12,8 +7,6 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.javamoney.moneta.Money;
 import org.springframework.data.mongodb.core.MongoOperations;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -23,7 +16,8 @@ import static org.springframework.data.mongodb.core.query.Update.update;
 
 public class StoreOperationsImpl implements StoreOperations {
 
-    private static final Log LOG = LogFactory.getLog(StoreOperationsImpl.class);
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(StoreOperationsImpl.class.getName());;
+    
 
     private static final String DBNAME = "tescodb";
     private MongoOperations mongoOps;
@@ -142,7 +136,7 @@ public class StoreOperationsImpl implements StoreOperations {
             }
         };
 
-        LOG.info("Inserting elements on list: ");
+        LOG.debug("Inserting elements on list: ");
         insertSampleItems(listItem);
     }
 

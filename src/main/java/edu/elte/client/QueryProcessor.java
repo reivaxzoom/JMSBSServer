@@ -22,78 +22,24 @@ import javax.jms.Destination;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.qpid.client.AMQAnyDestination;
+//import static org.springframework.data.mongodb.core.WriteResultChecking.LOG;
 
 
 public class QueryProcessor {
 
-    private static final Log LOG = LogFactory.getLog(QueryProcessor.class);
+//    private static final Log LOG = LogFactory.getLog(QueryProcessor.class);
+    static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(QueryProcessor.class.getName());
     StoreOperations stOps;
+    private static final String JMSselector = "category='shoes' OR category='sport'  ";
+    private static final String topicName = "addidas";
 
-//    public void consumeAll() {
-//
-//        Session session = null;
-//        Connection connection = null;
-//        MessageConsumer consumer = null;
-//        try {
-//            Properties properties = new Properties();
-//            properties.load(this.getClass().getClassLoader().getResourceAsStream("message.properties"));
-//            Context context = new InitialContext(properties);
-//
-//            ConnectionFactory connectionFactory = (ConnectionFactory) context.lookup("localConnectionFactory");
-//            connection = connectionFactory.createConnection();
-//            connection.start();
-//
-//            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-//             AMQDestination topic = new AMQAnyDestination("requestTopic");
-////            Queue topic = (Queue) context.lookup("requestTopic");
-////            Destination topic = (Queue) context.lookup("requestTopic");
-////            AMQTopic topic = (AMQTopic) context.lookup("requestTopic");
-//            consumer = session.createConsumer(topic);
-//
-//            stOps = new StoreOperationsImpl();
-//            ObjectMessage message;
-//
-//            long timeout = -1;
-//
-//            while ((message = (ObjectMessage) consumer.receive(timeout)) != null) {
-//
-//                ObjectMessage objMes = (ObjectMessage) message;
-//                System.out.println("\n------------- Msg -------------");
-//                System.out.println(message);
-//                System.out.println("-------------------------------\n");
-//
-//                ShoppingCart clientCart = (ShoppingCart) objMes.getObject();
-//                List<ClientRequest> resultList = stOps.checkAvailableItems(clientCart);
-//                Thread.sleep(2000);
-//                ShoppingCart resultCart = new ShoppingCart();
-//                resultCart.addAll(resultList);
-//                sendMessages(resultCart);
-//
-//            }
-//
-//        } catch (IOException | NamingException | JMSException|URISyntaxException| NullPointerException| InterruptedException ex) {
-//            Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            try {
-//                consumer.close();
-//                session.close();
-//                connection.close();
-//            } catch (JMSException ex) {
-//                Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
-    
-    
-    
     public void consumeAll() {
 
         Session session = null;
         Connection connection = null;
         try {
+            log.info("connecting qpid to");
             Properties properties = new Properties();
             properties.load(this.getClass().getClassLoader().getResourceAsStream("message.properties"));
             Context context = new InitialContext(properties);
@@ -105,14 +51,17 @@ public class QueryProcessor {
             session = connection.createSession(true, Session.SESSION_TRANSACTED);
             Topic requestTopic = session.createTopic("requestTopic");
 //            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "tesco");
-            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "addidas","category='shoes' OR category='sport'  ",true);
+            MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, topicName, JMSselector,true);
 /*
             Context marketplaceContext = Declare("category", String.class);
             MessageConsumer subscriber1 = session.createDurableSubscriber(requestTopic, "addidas",marketplaceContext.create(Equal("category","shoes").OR( Equal("category","sport"))),true);
              
             msg.setStringProperty("category","food")
             marketplaceContext.setStringProperty(msg,"category","food")
+            
 */                    
+            log.info("Connected to topic "+topicName);
+            log.info("JMS Selector: "+JMSselector);
             stOps = new StoreOperationsImpl();
             ObjectMessage message;
             context.close();
@@ -122,9 +71,9 @@ public class QueryProcessor {
             int maximum=6;
             while ((message = (ObjectMessage) subscriber1.receive()) != null) {
                 ObjectMessage objMes = (ObjectMessage) message;
-                System.out.println("\n------------- Msg -------------");
-                System.out.println(message);
-                System.out.println("-------------------------------\n");
+                log.info("\n--- Message to be processed -------------\n");
+                log.info(message);
+                log.info("\n---end Message-------------------------\n");
             session.commit();
             
                 ShoppingCart clientCart = (ShoppingCart) objMes.getObject();
@@ -133,14 +82,17 @@ public class QueryProcessor {
 //  setting random time for process
                 int randomDuration = minimum + (int)(Math.random() * maximum); 
                 Thread.sleep(randomDuration*1000);
-    
+                log.info("Message processed");
                 ShoppingCart resultCart = new ShoppingCart();
                 resultCart.addAll(resultList);
                 sendMessages(resultCart);
                 receivedMsg = receivedMsg + 1;
             }
+            log.info("Sending response done");
+                    
             session.close();
             connection.close();
+            log.info("session closed");
 
         } catch (JMSException ex) {
             Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,6 +100,7 @@ public class QueryProcessor {
             Logger.getLogger(QueryProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+   
     
     
 
@@ -159,6 +112,7 @@ public class QueryProcessor {
         
 
         try {
+            log.info("Preparing responses");
             Properties properties = new Properties();
             properties.load(getClass().getClassLoader().getResourceAsStream("message.properties"));
             context = new InitialContext(properties);
@@ -179,7 +133,7 @@ public class QueryProcessor {
             m.setDoubleProperty("number", 1);
             m.setJMSTimestamp(Instant.now().toEpochMilli());
             producer.send((Message) m);
-            System.out.println("Sent: " + m);
+            log.info("Request answered:\n " + m);
             
 
         } catch (JMSException | NamingException | IOException |URISyntaxException   ex) {
@@ -201,9 +155,9 @@ public class QueryProcessor {
 
     public void regenerateDb() {
         stOps = new StoreOperationsImpl();
-        LOG.info("removing database");
+        log.info("removing database");
         stOps.removeAllListItems();
-        LOG.info("populating database");
+        log.info("populating database");
         stOps.createSampleItems();
         stOps.findAllItems().stream().forEach(System.out::println);
     }
