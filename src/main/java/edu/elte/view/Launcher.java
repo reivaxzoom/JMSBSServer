@@ -6,6 +6,7 @@
 package edu.elte.view;
 
 import edu.elte.client.QueryProcessor;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -13,10 +14,13 @@ import edu.elte.client.QueryProcessor;
  */
 public class Launcher {
 
+    static Logger log = Logger.getLogger(Launcher.class.getName());
+    
     /**
      * @param args
      */
     public static void main(String[] args)  {
+        log.warn("Starting program");
         if (args != null && args.length > 0) {
             String option = args[0];
             String[] args2 = new String[0];
@@ -28,16 +32,19 @@ public class Launcher {
             switch (option) {
                 case "process":
                     {
+                        log.warn("Processing transaction");
                         new QueryProcessor().consumeAll();
                         break;
                     }
                 case "dboperations":
                     {
+                        log.warn("processing regenerationDb");
                         new QueryProcessor().regenerateDb();
                         break;
                     }
                 default:
                 {
+                    log.warn("no valid option selected");
                     System.out.println("Not valid option");
                 }
             }

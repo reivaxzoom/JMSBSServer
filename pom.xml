@@ -15,6 +15,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+<!--         <slf4j-version>1.6.6</slf4j-version>
+        <log4j-version>1.2.17</log4j-version>-->
+        
     </properties>
     
      <dependencies>
@@ -60,11 +63,47 @@
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jms_1.1_spec</artifactId>
         </dependency>
+       
+        <!-- Logging -->
+        
+        <dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+        
+        
+<!--        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-version}</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j-version}</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j-version}</version>
+            <scope>runtime</scope>
+        </dependency>-->
+        
+<!--        <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-simple</artifactId>
+           <version>1.7.7</version>
+       </dependency>-->
+<!--       <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-api</artifactId>
+           <version>1.7.7</version>
+       </dependency>-->
+       
+       
+       
           
      </dependencies>
     <build>
@@ -93,10 +132,13 @@
         </execution>
       </executions>
     </plugin>-->
-            <plugin>
+    
+    
+        
+<!--            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -107,7 +149,7 @@
                 </configuration>
             </plugin>
             
-            <plugin>
+<!--            <plugin>
                 <groupId>com.mysema.maven</groupId>
                 <artifactId>apt-maven-plugin</artifactId>
                 <version>1.1.3</version>
@@ -122,7 +164,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>  
+            </plugin>  -->
         </plugins>
     </build>
     
