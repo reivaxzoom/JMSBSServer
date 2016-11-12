@@ -5,7 +5,7 @@
  */
 package edu.elte.singleBussiness;
 
-import edu.elte.client.ClientRequest;
+import elte.sportStore.model.Item;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ public interface StoreOperations {
     void removeAllListItems();
     ItemStore findItem(String name);
     List<ItemStore> findAllItems();
-    ClientRequest checkAvailableItem(ClientRequest cliReq);
-    List<ClientRequest> checkAvailableItems(List<ClientRequest> cliReq);
+    Item checkAvailableItem(Item cliReq);
+    List<Item> checkAvailableItems(List<Item> cliReq);
     
 }

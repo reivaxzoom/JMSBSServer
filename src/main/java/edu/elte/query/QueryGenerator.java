@@ -7,7 +7,7 @@ package edu.elte.query;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Expression;
-import edu.elte.client.QRequestData;
+import elte.sportStore.model.QRequestData;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -5,7 +5,7 @@
  */
 package edu.elte.client.threads;
 
-import edu.elte.view.Launcher;
+import elte.sportStore.view.Launcher;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Properties;

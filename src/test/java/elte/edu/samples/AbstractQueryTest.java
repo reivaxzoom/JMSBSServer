@@ -14,7 +14,7 @@ package elte.edu.samples;
  * limitations under the License.
  */
 
-import edu.elte.client.RequestData;
+import elte.sportStore.model.RequestData;
 import com.querydsl.collections.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ import com.querydsl.core.DefaultQueryMetadata;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.alias.Alias;
 import com.querydsl.core.types.Expression;
-import edu.elte.client.QRequestData;
+import elte.sportStore.model.QRequestData;
 import java.util.Optional;
 
 public abstract class AbstractQueryTest {

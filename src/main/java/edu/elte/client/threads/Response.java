@@ -1,12 +1,12 @@
 package edu.elte.client.threads;
 
 import oldcode.*;
-import edu.elte.client.ClientRequest;
-import edu.elte.client.RequestData;
+import elte.sportStore.model.Item;
+import elte.sportStore.model.RequestData;
 import edu.elte.client.ShoppingCart;
 import edu.elte.singleBussiness.StoreOperations;
 import edu.elte.singleBussiness.StoreOperationsImpl;
-import edu.elte.view.Launcher;
+import elte.sportStore.view.Launcher;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.Instant;
@@ -62,7 +62,7 @@ public class Response implements Runnable {
         stOps = new StoreOperationsImpl();
         while ((incReq = queue.poll()) != null) {
             List clientCart = (List) incReq.getItems();
-            List<ClientRequest> resultList = stOps.checkAvailableItems(clientCart);
+            List<Item> resultList = stOps.checkAvailableItems(clientCart);
             if(!resultList.isEmpty()){
                 log.info("Message processed");
                 ShoppingCart resultCart = new ShoppingCart();

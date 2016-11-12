@@ -1,7 +1,7 @@
 package oldcode;
 
 import edu.elte.client.QueryProcessor;
-import edu.elte.client.RequestData;
+import elte.sportStore.model.RequestData;
 import edu.elte.client.ShoppingCart;
 import edu.elte.singleBussiness.StoreOperations;
 import edu.elte.singleBussiness.StoreOperationsImpl;

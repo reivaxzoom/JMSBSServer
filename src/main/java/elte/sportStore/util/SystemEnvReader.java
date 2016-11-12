@@ -1,4 +1,4 @@
-package util;
+package elte.sportStore.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

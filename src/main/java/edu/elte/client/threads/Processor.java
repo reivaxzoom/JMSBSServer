@@ -5,12 +5,12 @@
  */
 package edu.elte.client.threads;
 
-import edu.elte.client.ClientRequest;
-import edu.elte.client.RequestData;
+import elte.sportStore.model.Item;
+import elte.sportStore.model.RequestData;
 import edu.elte.client.ShoppingCart;
 import edu.elte.singleBussiness.StoreOperations;
 import edu.elte.singleBussiness.StoreOperationsImpl;
-import edu.elte.view.Launcher;
+import elte.sportStore.view.Launcher;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -117,7 +117,7 @@ public class Processor implements Runnable {
             session.commit();
             
                 ShoppingCart clientCart = (ShoppingCart) objMes.getObject();
-                List<ClientRequest> resultList = stOps.checkAvailableItems(clientCart);
+                List<Item> resultList = stOps.checkAvailableItems(clientCart);
                 
             //  setting random time for process
                 int randomDuration = minimum + (int)(Math.random() * maximum); 

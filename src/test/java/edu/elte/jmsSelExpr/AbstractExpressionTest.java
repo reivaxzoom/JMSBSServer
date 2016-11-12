@@ -7,7 +7,7 @@ package edu.elte.jmsSelExpr;
 
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import edu.elte.client.QRequestData;
+import elte.sportStore.model.QRequestData;
 import edu.elte.query.JMSSelectorSerializer;
 import edu.elte.query.JMSTemplates;
 import java.util.Arrays;

@@ -13,7 +13,7 @@
  */
 package elte.edu.samples;
 
-import edu.elte.client.RequestData;
+import elte.sportStore.model.RequestData;
 import com.querydsl.collections.*;
 import static com.querydsl.collections.CollQueryFactory.from;
 import com.querydsl.core.Query;

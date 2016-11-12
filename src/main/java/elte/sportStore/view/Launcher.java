@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.elte.view;
+package elte.sportStore.view;
 
 import edu.elte.client.QueryProcessor;
-import edu.elte.client.RequestData;
+import elte.sportStore.model.RequestData;
 import edu.elte.client.threads.Processor;
 import edu.elte.client.threads.Response;
 import edu.elte.client.threads.Suscription;

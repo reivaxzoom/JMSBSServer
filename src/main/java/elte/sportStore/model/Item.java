@@ -1,4 +1,4 @@
-package edu.elte.client;
+package elte.sportStore.model;
 
 import java.io.Serializable;
 import javax.money.NumberValue;
@@ -7,23 +7,23 @@ import javax.money.NumberValue;
  *
  * @author Xavier
  */
-public class ClientRequest implements Serializable{
+public class Item implements Serializable{
  private static final long serialVersionUID = 1L;
     private String name;
     private int amount ;
     private NumberValue unityPrice;
 
-    public ClientRequest() {
+    public Item() {
     }
 
     
     
-    public ClientRequest(String name, int amount) {
+    public Item(String name, int amount) {
         this.name = name;
         this.amount = amount;
     }
 
-    public ClientRequest(String name, int amount, NumberValue unityPrice) {
+    public Item(String name, int amount, NumberValue unityPrice) {
         this.name = name;
         this.amount = amount;
         this.unityPrice = unityPrice;
@@ -53,7 +53,7 @@ public class ClientRequest implements Serializable{
     
     @Override
     public String toString() {
-        return "CliReq{" + "name=" + name + ", amount=" + amount + '}';
+        return "Item{" + "name=" + name + ", amount=" + amount + '}';
     }
 
     

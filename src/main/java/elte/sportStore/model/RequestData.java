@@ -1,4 +1,4 @@
-package edu.elte.client;
+package elte.sportStore.model;
 
 import com.querydsl.core.annotations.QueryEmbedded;
 import com.querydsl.core.annotations.QueryEntity;
@@ -14,8 +14,7 @@ import java.util.Date;
 //@QuerySupertype
 public class RequestData {
         static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-        
-        
+
         private String id;
         private String subOrd;
         private String name;
@@ -178,17 +177,5 @@ public class RequestData {
     public String toString() {
         return "RequestData{" + "id=" + id + ", address=" + address + ", country=" + country + ", prio=" + prio + ", expDelivery=" + dateFormat.format(expDelivery) + ", category=" + category + ", itemNumber=" + itemNumber + ", items=" + items + '}';
     }
-
-   
-    
-    
-    
-    
-
-        
-        
-
-    
-    
 }
         

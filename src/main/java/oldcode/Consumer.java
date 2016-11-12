@@ -1,7 +1,7 @@
 package oldcode;
 
-import edu.elte.client.ClientRequest;
-import edu.elte.client.RequestData;
+import elte.sportStore.model.Item;
+import elte.sportStore.model.RequestData;
 import edu.elte.client.ShoppingCart;
 import edu.elte.singleBussiness.StoreOperations;
 import edu.elte.singleBussiness.StoreOperationsImpl;
@@ -59,7 +59,7 @@ public class Consumer implements Runnable {
         Session session = conectQueue();
         while ((incReq = queue.poll()) != null) {
             ShoppingCart clientCart = (ShoppingCart) incReq.getItems();
-            List<ClientRequest> resultList = stOps.checkAvailableItems(clientCart);
+            List<Item> resultList = stOps.checkAvailableItems(clientCart);
             if(!resultList.isEmpty()){
                 log.info("Message processed");
                 ShoppingCart resultCart = new ShoppingCart();

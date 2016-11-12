@@ -6,7 +6,6 @@
 package edu.elte.singleBussiness;
 
 import com.mysema.query.annotations.QueryEntity;
-import java.util.List;
 import java.util.Objects;
 import javax.money.NumberValue;
 import org.springframework.data.annotation.Id;
@@ -28,8 +27,8 @@ public class ItemStore {
     private int amount;
     @Field("money")
     private NumberValue unityPrice;
-    private String Brand;
-    private List<String> listPhotosIt;
+//    private String Brand;
+//    private List<String> listPhotosIt;
     
     
      

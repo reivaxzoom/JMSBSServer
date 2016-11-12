@@ -25,10 +25,6 @@ import org.junit.Assert;
 
 public class BooleanExpressionsTest extends AbstractExpressionTest{
 
-    
-
-   
-
     @Test
     public void or1() {
         Expression addidas = rd.category.eq("sport").or(rd.category.eq("shoes")).or(rd.category.eq("test"));
