@@ -5,12 +5,9 @@
  */
 package edu.elte.singleBussiness;
 
-import edu.elte.client.ClientRequest;
-import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,9 +30,31 @@ public class StoreOperationsImplTest {
     public static void setUpClass() {
     }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
+//    @AfterClass
+//    public static void tearDownClass() throws IOException {
+//        File file = new File("target/resources");
+//        URL[] urls = {file.toURI().toURL()};
+//        ClassLoader loader = new URLClassLoader(urls);
+//        ResourceBundle bundle = ResourceBundle.getBundle("message", Locale.getDefault(), loader);
+//        System.out.println("qpid properties");
+//        System.out.println("topic.requestTopic="+bundle.getString("topic.requestTopic"));
+//        System.out.println("queue.responseQueue="+bundle.getString("queue.responseQueue"));
+//        System.out.println("connectionfactory.localConnectionFactory="+bundle.getString("connectionfactory.localConnectionFactory"));
+//        System.out.println("jms properties");
+//        System.out.println("SPORTSTOPICNAME="+bundle.getString("SPORTSELECTION"));
+//        System.out.println("SPORTSTOPICNAME="+bundle.getString("SPORTSTOPICNAME"));
+//        
+//        assertNotNull( bundle.getString("SPORTSTOPICNAME"));
+//    }
+    
+//    private static final String JMSselector = java.util.ResourceBundle.getBundle("JMSselectors").getString("SPORTSELECTION");
+//    private static final String topicName = java.util.ResourceBundle.getBundle("JMSselectors").getString("SPORTSTOPICNAME");
+    
+    void checkJava(){}
+    void checkMongoDb(){}
+    void checkQpid(){}
+    
+    
     
     @Before
     public void setUp() {
@@ -59,9 +78,9 @@ public class StoreOperationsImplTest {
     @Test
     public void testAddStockOne() {
         LOG.info("addStockOne");
-        ItemStore it =so.findItem("Rice");
+        ItemStore it =so.findItem("backpack");
         so.addStockOne(it);
-        ItemStore it1 =so.findItem("Rice");
+        ItemStore it1 =so.findItem("backpack");
         assertEquals(it.getAmount()+1, it1.getAmount());
         
     }
@@ -72,9 +91,9 @@ public class StoreOperationsImplTest {
     @Test
     public void testReduceOne() {
         LOG.info("reduceOne");
-        ItemStore it =so.findItem("Rice");
+        ItemStore it =so.findItem("backpack");
         so.reduceOne(it);
-        ItemStore it1 =so.findItem("Rice");
+        ItemStore it1 =so.findItem("backpack");
         assertEquals(it.getAmount()-1, it1.getAmount());
     }
 
@@ -85,9 +104,9 @@ public class StoreOperationsImplTest {
     public void testAddStock() {
         LOG.info("addStock");
         int numAdded=10;
-        ItemStore it =so.findItem("Rice");
+        ItemStore it =so.findItem("backpack");
         so.addStock(it,numAdded);
-        ItemStore it1 =so.findItem("Rice");
+        ItemStore it1 =so.findItem("backpack");
         assertEquals(it.getAmount()+numAdded, it1.getAmount());
     }
 
@@ -99,9 +118,9 @@ public class StoreOperationsImplTest {
         LOG.info("reduce");
         LOG.info("addStock");
         int num=10;
-        ItemStore it =so.findItem("Rice");
+        ItemStore it =so.findItem("backpack");
         so.addStock(it,num);
-        ItemStore it1 =so.findItem("Rice");
+        ItemStore it1 =so.findItem("backpack");
         assertEquals(it.getAmount()+num, it1.getAmount());
     }
 

@@ -25,7 +25,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath edu.elte.view.Launcher process -c=10 r</exec.args>
+                <exec.args>-classpath %classpath edu.elte.view.Launcher receive</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath edu.elte.view.Launcher process -c=10 r</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath edu.elte.view.Launcher receive</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -54,8 +54,22 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath edu.elte.view.Launcher process -c=10 r</exec.args>
+                <exec.args>-classpath %classpath edu.elte.view.Launcher receive</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-resources:copy-resources</actionName>
+            <displayName>resources:copy-resources</displayName>
+            <goals>
+                <goal>resources:copy-resources</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-resources:resources</actionName>
+            <displayName>resources:resources</displayName>
+            <goals>
+                <goal>resources:resources</goal>
+            </goals>
         </action>
     </actions>

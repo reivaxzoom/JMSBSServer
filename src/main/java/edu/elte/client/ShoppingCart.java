@@ -5,7 +5,6 @@
  */
 package edu.elte.client;
 
-import edu.elte.client.ClientRequest;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
