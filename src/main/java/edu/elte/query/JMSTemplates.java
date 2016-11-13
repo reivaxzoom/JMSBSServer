@@ -9,7 +9,7 @@ import com.querydsl.core.types.PathType;
  * {@code CollQueryTemplates} extends {@link JavaTemplates} to add module specific operation
  * templates.
  *
- * @author tiwe
+ * @author Xavier
  */
 public class JMSTemplates extends JavaTemplates {
 

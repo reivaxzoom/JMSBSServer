@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.money.NumberValue;
 
 /**
- *
+ * Representation of the item
  * @author Xavier
  */
 public class Item implements Serializable{
@@ -16,8 +16,6 @@ public class Item implements Serializable{
     public Item() {
     }
 
-    
-    
     public Item(String name, int amount) {
         this.name = name;
         this.amount = amount;

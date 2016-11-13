@@ -30,12 +30,6 @@ public class StoreOperationsImpl implements StoreOperations {
         }
     }
 
-//    public StoreOperationsImpl(String dbName) {
-//        try {
-//            mongoOps = MongoConnection.getLocalInstance(dbName);
-//        } catch (Exception e) {
-//        }
-//    }
     @Override
     public void checkout() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -238,14 +232,3 @@ public class StoreOperationsImpl implements StoreOperations {
     }
 
 }
-
-//
-// @Override
-//    public void findItem(String nameItem) {
-//         QStore qStore = new QStore("Busca");
-//        Iterable<Store> result =storeRep.findAll(qStore.name.eq(STORENAME));
-//        System.out.println("Print Stores name "+STORENAME);
-//        result.forEach((st) -> {
-//            System.out.println("Store: "+st.getName()+ " item :"+ st.getItemStore().stream().filter(p -> p.getName().equals(nameItem)).collect(Collectors.toList()));
-//        });
-//    }

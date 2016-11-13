@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.elte.singleBussiness;
 
 import com.mongodb.Mongo;
@@ -12,8 +7,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 /**
- *
- * @author I328441
+ * Manage mongo connections  
+ * @author Xavier
  */
 public class MongoConnection extends Mongo{
     private static MongoConnection instance = null;
@@ -21,8 +16,6 @@ public class MongoConnection extends Mongo{
 
     protected MongoConnection () 
           throws UnknownHostException,UnsupportedOperationException{
-
-
     }
 
     protected MongoConnection (String ip, int port) 
@@ -32,11 +25,9 @@ public class MongoConnection extends Mongo{
 
     public static synchronized MongoConnection getInstance(String ip, int port) 
                      throws UnknownHostException{
-
         if (instance == null){
           instance =  new MongoConnection(ip,port);
         }
-
          return instance;
     }
     public static synchronized MongoOperations getLocalInstance(String dbName) 
@@ -46,9 +37,7 @@ public class MongoConnection extends Mongo{
 //          instance =  new MongoConnection("192.168.99.100",32768);
           instance =  new MongoConnection("127.0.0.1",27017);
           mongoOps = new MongoTemplate(new SimpleMongoDbFactory(instance, dbName));
-          
         }
-
          return mongoOps;
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.elte.client.threads;
 
 import elte.sportStore.model.Item;
@@ -39,7 +34,6 @@ public class Processor implements Runnable {
     
     static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Processor.class.getName());
 
-//    final private ShoppingCart resultCart;
     RequestData reqData ;
     StoreOperations stOps;
     
